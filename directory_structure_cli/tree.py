@@ -24,11 +24,12 @@ class Tree:
     """
 
     def __init__(
-        self, path: str, absolute: bool = False, max_depth: int = None
+        self, path: str, absolute: bool = False, max_depth: int = None, show_hidden: bool = False
     ) -> None:
         self.path = pathlib.Path(path)
         self.absolute = absolute
         self.max_depth = max_depth
+        self.show_hidden = show_hidden
         self._lines = 0
         self._base = []
         self._content = []
@@ -88,6 +89,9 @@ class Tree:
         )
 
         for item in items:
+            if item.name.startswith(".") and not self.show_hidden:
+                continue
+
             if item.is_dir():
                 self._content.append(
                     f"{self._space(depth)}|_{EMOJI_FOLDER} {item.name}"
@@ -160,8 +164,15 @@ class Tree:
     show_default=True,
     help="Copy the output to your clipboard"
 )
+@click.option(
+    "--hidden",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Show hidden files and folders, starting with '.'"
+)
 def cli(
-    path: pathlib.Path, absolute: bool, depth: Optional[int], no_emoji: bool, clip: bool
+    path: pathlib.Path, absolute: bool, depth: Optional[int], no_emoji: bool, clip: bool, hidden: bool
 ) -> None:
     """Generate a directory tree structure with emoji icons.
 
@@ -174,7 +185,7 @@ def cli(
         EMOJI_FOLDER = "+"
         EMOJI_FILE = "-"
 
-    tree = Tree(path, absolute=absolute, max_depth=depth)
+    tree = Tree(path, absolute=absolute, max_depth=depth, show_hidden=hidden)
 
     if clip:
         pyperclip.copy(str(tree))    
