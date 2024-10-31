@@ -21,6 +21,6 @@ setuptools.setup(
     ],
     keywords='directory structure tree emoji folder file',
     packages=setuptools.find_packages(),
-    install_requires=['emoji'],
+    install_requires=['emoji', 'click'],
     python_requires='>=3',
 )
