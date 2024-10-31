@@ -1,6 +1,7 @@
 import pathlib
 import emoji
 import click
+import pyperclip
 from typing import Optional
 
 EMOJI_BASE = emoji.emojize(":open_file_folder:")
@@ -152,8 +153,15 @@ class Tree:
     show_default=True,
     help="Disable emoji icons in output",
 )
+@click.option(
+    "--clip",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Copy the output to your clipboard"
+)
 def cli(
-    path: pathlib.Path, absolute: bool, depth: Optional[int], no_emoji: bool
+    path: pathlib.Path, absolute: bool, depth: Optional[int], no_emoji: bool, clip: bool
 ) -> None:
     """Generate a directory tree structure with emoji icons.
 
@@ -167,8 +175,11 @@ def cli(
         EMOJI_FILE = "-"
 
     tree = Tree(path, absolute=absolute, max_depth=depth)
-    click.echo(tree)
 
+    if clip:
+        pyperclip.copy(str(tree))    
+
+    click.echo(tree)
 
 if __name__ == "__main__":
     cli()
