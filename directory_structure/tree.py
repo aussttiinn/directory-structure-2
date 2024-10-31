@@ -76,7 +76,6 @@ class Tree:
         if self.max_depth is not None and depth >= self.max_depth:
             return
 
-        # Sort items to ensure consistent ordering
         items = sorted(current_path.iterdir(), key=lambda x: (not x.is_dir(), x.name.lower()))
         
         for item in items:
@@ -84,7 +83,6 @@ class Tree:
                 self._content.append(
                     f'{self._space(depth)}|_{EMOJI_FOLDER} {item.name}'
                 )
-                # Recurse into the subdirectory
                 self._get_content(item, depth + 1)
             else:
                 self._content.append(
@@ -101,11 +99,8 @@ class Tree:
         tree : str
             Complete directory tree structure.
         """
-        # Handle the path traversal exactly as before
         self._get_base()
         self._base = ''.join(self._base)
-        
-        # Start recursive traversal only at the final directory
         self._get_content(self.path)
         self._content = ''.join(self._content)
         
