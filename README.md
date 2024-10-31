@@ -1,4 +1,4 @@
-# directory-structure
+# directory-structure-cli 
 
 ![PyPI](https://img.shields.io/pypi/v/directory-structure?color=blue)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/directory-structure?color=blue)
