@@ -4,13 +4,13 @@ with open('README.md', 'r', encoding='utf-8') as file:
     long_description = file.read()
 
 setuptools.setup(
-    name='directory-structure',
-    version='1.1.2',
+    name='directory-structure-cli',
+    version='1.0',
     description='Print a directory tree structure in your Python code.',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/gabrielstork/directory-structure',
-    author='Gabriel Stork',
+    url='https://github.com/aussttiinn/directory-structure-cli',
+    author='Gabriel Stork, aussttiinn',
     author_email='storkdeveloper@gmail.com',
     license='MIT',
     classifiers=[
